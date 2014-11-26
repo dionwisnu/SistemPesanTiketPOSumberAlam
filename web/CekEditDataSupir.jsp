@@ -4,9 +4,9 @@
     Author     : Dion Wisnu
 --%>
 
+<%@page import="com.tools.Koneksi"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="com.supir.DataSupirControl"%>
-<%@page import="com.supir.DataSupir"%>
+<%@page import="com.PengelolaSupir.DataSupir"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,23 +16,25 @@
     </head>
     <body>
         <%
-            if (request.getParameter("tombol").equals("Simpan")){
+            if (request.getParameter("tombol").equals("Simpan")) {
                 String idSupir = (String) session.getAttribute("idSpr");
                 DataSupir dataSupir = new DataSupir();
+                Koneksi koneksi = new Koneksi();
                 dataSupir.setNamaSupir(request.getParameter("namaSupir"));
-                dataSupir.setNoTelp(request.getParameter("noTelp"));
+                dataSupir.setNomorHP(request.getParameter("noTelp"));
                 dataSupir.setAlamat(request.getParameter("alamat"));
-                try{
-                    DataSupirControl.getKoneksiDataSupir().UpdateDataSupir(dataSupir, idSupir);
+                try {
+                    koneksi.getDBConnection();
+                    dataSupir.UpdateDataSupir(dataSupir, idSupir);
                     response.sendRedirect("FormMenuPengelolaSupir.jsp?ubah=y");
-                } catch (SQLException ex){
+                } catch (SQLException ex) {
                     response.sendRedirect("FormUbahDataSupir.jsp?error=y");
-                } 
-            } else{
-                
+                }
+            } else {
+
             }
-            
-            
+
+
         %>
     </body>
 </html>

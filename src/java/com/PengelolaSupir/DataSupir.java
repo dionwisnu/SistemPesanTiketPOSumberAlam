@@ -75,20 +75,10 @@ public class DataSupir {
             pstmt.setString(4, supir.getAlamat());
             pstmt.executeUpdate();
             conn.commit();
-            conn.close();
         } catch (SQLException exception) {
             conn.rollback();
             System.out.println("Tambah Data Supir gagal = " + exception.getMessage());
             throw exception;
-        } finally {
-            try {
-                conn.setAutoCommit(true);
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (SQLException exception) {
-                throw exception;
-            }
         }
     }
 
@@ -141,13 +131,13 @@ public class DataSupir {
 
                 ds.setIdSupir(rset.getString("idSupir"));
             }
-            
+
             if (ds.getIdSupir().equals("")) {
                 status = false;
             } else {
                 status = true;
             }
-            System.out.println("status : "+status);
+            System.out.println("status : " + status);
             return status;
         } catch (SQLException ex) {
             System.out.println("Gagal hitung jumlah supir = " + ex.getMessage());
@@ -155,11 +145,12 @@ public class DataSupir {
         }
 
     }
-    private void copotSupirDariBus(String id_supir) throws SQLException{
+
+    private void copotSupirDariBus(String id_supir) throws SQLException {
         PreparedStatement statement = null;
         try {
             conn.setAutoCommit(false);
-            String sql = "update databus set idsupir='' where idsupir='"+id_supir+"'";
+            String sql = "update databus set idsupir='' where idsupir='" + id_supir + "'";
             statement = conn.prepareStatement(sql);
             statement.executeUpdate();
             conn.commit();
@@ -169,8 +160,7 @@ public class DataSupir {
             System.out.println("Gagal Update : " + ex.getMessage());
         }
     }
-    
-    
+
     public void UpdateDataSupir(DataSupir dataSupir, String key) throws SQLException {
         PreparedStatement statement = null;
         try {

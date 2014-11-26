@@ -80,9 +80,9 @@
                     ds.setNomorHP(request.getParameter("noTelp"));
                     ds.setAlamat(request.getParameter("alamat"));
                     ds.UpdateDataSupir(ds, idSupir);
-                    out.println("Data Berhasil diupdate");
+                    //out.println("Data Berhasil diupdate");
                 } catch (SQLException ex) {
-                    out.println("Data gagal diupdate karena : " + ex);
+                    //out.println("Data gagal diupdate karena : " + ex);
                 }
             }
         %>
