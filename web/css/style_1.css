@@ -1,0 +1,13 @@
+
+div#form-login { width:400px; margin:0 auto; padding:20px; background-color:#404040; border-radius:15px; -moz-border-radius:15px; -webkit-border-radius:15px;border:1px solid #666; text-align:center;font-size: small; font-family: "Lucida Grande","Lucida Sans Unicode", "Tahoma", "sans-serif"; letter-spacing: .01em; color:#080808 ; } div#form-login form { margin:0;padding:0;border-radius:15px; -moz-border-radius:15px; -webkit-border-radius:15px;border:1px solid #666; background-color:#E7FCD8; -webkit-box-shadow: rgba(0,0,0,0.25) 5px 5px 10px; -moz-box-shadow: rgba(0,0,0,0.25) 5px 5px 10px; box-shadow: rgba(0,0,0,0.25) 5px 5px 10px; } div#form-login form label { float:left; width:120px;} div#form-login form .txt { padding:3px;margin:3px;} div#form-login h1 { font:20px "Trebuchet MS"; border-bottom:1px dotted #009900;padding:5px;margin:10px;} div#tombol { clear:both;padding:10px;} .button{ box-shadow: rgba(0,0,0,0.1) 0px 1px 1px;padding:3px 20px; } .button:hover,.button:focus{ color: #000; -webkit-box-shadow: rgba(0,0,0,0.25) 1px 1px 3px; -moz-box-shadow: rgba(0,0,0,0.25) 1px 1px 3px; box-shadow: rgba(0,0,0,0.25) 1px 1px 3px; }
+div#header {
+    height:100px;
+    background:#080000 ;
+    border:1px solid #CCC;
+    width:950px;
+    margin:0px auto;
+    padding:0;
+}
+div#transparan {background:#000;opacity:0.4;filter:alpha(opacity=40);}
+div#body {background: url(images/back.jpg);margin:0;padding:0;background-size:100% 100%}
+
