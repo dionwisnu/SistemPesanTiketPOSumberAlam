@@ -23,16 +23,7 @@
         <link rel="stylesheet" href="css/default.css" />
         <script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
         <script src="js/zebra_datepicker.js" type="text/javascript"></script>
-         <script>
-            $(document).ready(function() {
-                $('#tanggal').Zebra_DatePicker({
-                    format: 'd-F-Y',
-                    months: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-                    days: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'],
-                    days_abbr: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu']
-                });
-            });
-        </script>
+         
         <style>
      
         </style>

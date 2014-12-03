@@ -21,7 +21,7 @@
                 } else if (request.getParameter("username").equals("trayek") && request.getParameter("password").equals("trayek")) {
                     response.sendRedirect("FormMenuPengelolaBusTrayek.jsp");
                 } else if (request.getParameter("username").equals("agen") && request.getParameter("password").equals("agen")) {
-                    response.sendRedirect("FormMenuPengelolaBusTrayek.jsp");
+                    response.sendRedirect("FormMenuAgen.jsp");
                 } else {
                     response.sendRedirect("FormLogin.jsp?error=y");
                 }
