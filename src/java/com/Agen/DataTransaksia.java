@@ -1,5 +1,6 @@
 package com.Agen;
 
+import com.Pemesan.DataPemesanan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +25,15 @@ public class DataTransaksia {
     private String tanggal_bayar;
     private int total_bayar;
     private static Connection conn;
+    private DataPemesanan transaksi;
+
+    public DataPemesanan getTransaksi() {
+        return transaksi;
+    }
+
+    public void setTransaksi(DataPemesanan transaksi) {
+        this.transaksi = transaksi;
+    }
 
     public DataTransaksia() {
     }
@@ -71,17 +81,17 @@ public class DataTransaksia {
         }
     }
 
-    public void inputTransaksi(DataTransaksi agen) throws SQLException {
+    public void inputTransaksi(DataTransaksia agen) throws SQLException {
         String sql = "insert into DATA_TRANSAKSI_RPLO (kode_pembayaran,tanggal_bayar,"
                 + "waktu_bayar,total_bayar,kode_boking, status_keberangkatan) "
                 + "values(?,?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, generateKodeBooking());
-        ps.setString(2, agen.getTanggal_pembayaran());
+        ps.setString(2, agen.getTanggal_bayar());
         ps.setString(3, agen.getWaktu_bayar());
         ps.setString(4, agen.getTotal_bayar() + "");
-        ps.setString(5, agen.getTransaksi().getKode_booking());
-        ps.setString(6, agen.getStatus_pembayaran());
+        ps.setString(5, "  ");
+        ps.setString(6, agen.getStatus_keberangkatan());
         ps.executeUpdate();
         conn.commit();
         conn.close();

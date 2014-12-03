@@ -50,25 +50,17 @@
             </ul>
         </div>
         <section class="container">
-
             <div class="login h1">
                 <h1>Masukan Data Transaksi</h1>
-                <form method="post" action="index.html" name="demoform">
-                    <p>Kode Boking</p><p><input type="text" name="nama" value=""></p>
+                <form method="post" action="KonfirmasiAgen.jsp" name="demoform">
+                    <p>Kode Boking</p><p><input type="text" name="boking"></p>
                     <p>Tanggal bayar</p><p><input type="text" name="tanggal" id="tanggal"/></p>
-                    <p>Waktu bayar</p><p><input type="text" name="hp" value=""></p>
-                    <p>Total bayar</p><p><input type="text" name="email" value=""></p>
-                    <p>Status Keberangkatan</p><p><input type="text" name="seat" value=""></p>                    
-                    <p class="remember_me">
-                        <label>
-                            <input type="checkbox" name="yakin_pesan" id="yakin_pesan">
-                            Apakah data yang dimasukan telah sesuai?
-                        </label>
-                    </p>
+                    <p>Waktu bayar</p><p><input type="text" name="waktu"></p>
+                    <p>Total bayar</p><p><input type="text" name="total"></p>
+                    <p>Status Keberangkatan</p><p><input type="text" name="status"></p>                    
                     <p class="submit"><input type="submit" name="commit" value="Simpan"></p>
                 </form>
             </div>
-
             <div class="login-help">
                 <p>Kembali ? <a href="FormMenuUtama.jsp">Untuk kembali ke menu utama</a>.</p>
             </div>
