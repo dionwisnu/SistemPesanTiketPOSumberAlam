@@ -4,15 +4,16 @@
     Author     : Pace_2
 --%>
 
+<%@page import="com.Pemesan.DataPemesanan"%>
+<%@page import="com.Agen.DataTransaksia"%>
+<%@page import="com.tools.Koneksi"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="connection.DataBaseConnection"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="agen.DataTransaksi"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:useBean id="dt" scope="application" class="agen.DataTransaksi"/>
+<%--<jsp:useBean id="dt" scope="application" class="agen.DataTransaksi"/>--%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,14 +40,13 @@
                 });
             });
         </script>
-
     </head>
     <body background="sumberalam/background.jpg">
         <div>
             <h1><img src="sumberalam/header.jpg" width="1340" height="200" ></a></h1>
             <div id='cssmenu' >
                 <ul>
-                    <li><a href="FormMenuUtama.jsp"><span>Home</span></a></li>
+                    <li><a href="MenuAgen.jsp"><span>Home</span></a></li>
                     <li class='has-sub'><a href='#'><span>Pembayaran</span></a>
                         <ul>
                             <li class='has-sub'><a href="DataPembayaran.jsp"><span>Data Pembayaran</span></a>
@@ -61,33 +61,58 @@
         </div>
         <form action="BatalTiket.jsp" methot="get">
             <div class="login h1">
-                <table>
-                    <tr>
-                        <td>Kode pembayaran</td>
-                        <td><input type="text" name="kode"/></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td align="right"><input type="submit" value="Cari"/></td>
-                    </tr>
-                </table>
+                <p>Kode pembayaran</p><p><input type="text" name="kode"/></p>                
+                <p class="submit"><input type="submit" value="Cari"/></p>
             </div>
         </form>
         <%
             String kode = request.getParameter("kode");
+            Koneksi dbc = new Koneksi();
+            DataTransaksia dt = new DataTransaksia(dbc.getDBConnection());
+            DataPemesanan dp = new DataPemesanan();
+            List<DataTransaksia> transaksi = new ArrayList<DataTransaksia>();
+            transaksi = dt.searchBayar(kode);
         %>
-        <br><br><br><br>
-        <%
-          //  try{
-            //  int i = 1;
-            //ResultSet rs = dt.cariData(kode);
-            //while (rs.next()) {
-            //   out.println(rs.getString("kode_pembayaran"));
-            //}
-            //}catch (SQLException ex){
-            // }catch (NumberFormatException num){
-            //  }
+        <br><br>
 
-        %>
-    </body>
+        <%for (int i = 0; i < transaksi.size(); i++) {%>
+        <div class="login h1">
+            <p>
+                <!--<form action="BatalTiket.jsp" methot="get">-->
+            <table>
+                <tr>
+                    <td>Kode Pembayaran</td>
+                    <td>
+                        <% out.print(transaksi.get(i).getKode_bayar()); %>
+                        <input type="hidden" name="bayar" value="transaksi.get(i).getKode_bayar())"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tanggal Pembayaran</td>
+                    <td><% out.print(transaksi.get(i).getTanggal_bayar().substring(0, 11)); %></td>
+                </tr>
+                <tr>
+                    <td>Waktu Pembayaran</td>
+                    <td><% out.print(transaksi.get(i).getWaktu_bayar()); %></td>
+                </tr>
+                <tr>
+                    <td>Total Pembayaran</td>
+                    <td><% out.print(transaksi.get(i).getTotal_bayar()); %></td>
+                </tr>
+                <tr>
+                    <td>Kode Boking</td>
+                    <td><% out.print(transaksi.get(i).getKode_boking().getKode_booking()); %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><p class="submit"><input type="submit" value="Batal"/></td>
+                </tr>
+            </table>                
+            <!--</form>-->            
+        </p>
+    </div>
+    <%}%>
+
+    <%%>
+</body>
 </html>

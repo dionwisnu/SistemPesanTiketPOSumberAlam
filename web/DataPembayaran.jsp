@@ -26,7 +26,7 @@
             $(document).ready(function () {
                 $('#tanggal').Zebra_DatePicker({
                     format: 'd-F-Y',
-                    months: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                    months: ['Januari', 'Februari', 'Maret', 'April', 'May', 'Juni', 'Juli', 'Augustus', 'September', 'October', 'November', 'December'],
                     days: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'],
                     days_abbr: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu']
                 });
@@ -35,30 +35,29 @@
     </head>
     <body background="sumberalam/background.jpg">
         <h1><img src="sumberalam/header.jpg" width="1345" height="200" ></h1>
-        <div id='cssmenu'>
-            <ul>
-                <li><a href='FormMenuUtama.jsp'><span>Home</span></a></li>
-                <li class='has-sub'><a href='#'><span>Pemesanan</span></a>
-                    <ul>
-                        <li class='has-sub'><a href="FormPesanTiket.jsp"><span>Pesan Tiket</span></a>
-                        </li>
-                        <li class='has-sub'><a href="FormLihatSeatKosong.jsp"><span>Lihat Seat Kosong</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href='FormSpesifikasiBus.jsp'><span>Spesifikasi Bus</span></a></li>
-            </ul>
-        </div>
+        <div id='cssmenu' >
+                <ul>
+                    <li><a href="MenuAgen.jsp"><span>Home</span></a></li>
+                    <li class='has-sub'><a href='#'><span>Pembayaran</span></a>
+                        <ul>
+                            <li class='has-sub'><a href="DataPembayaran.jsp"><span>Data Pembayaran</span></a>
+                            </li>
+                            <li class='has-sub'><a href="BatalTiket.jsp"><span>Batal Tiket</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="TampilDataPembayaran.jsp"><span>Tampilkan Data Pembayaran</span></a></li>
+                </ul>
+            </div>
         <section class="container">
             <div class="login h1">
                 <h1>Masukan Data Transaksi</h1>
-                <form method="post" action="KonfirmasiAgen.jsp" name="demoform">
+                <form method="get" action="KonfirmasiAgen.jsp" name="demoform">
                     <p>Kode Boking</p><p><input type="text" name="boking"></p>
                     <p>Tanggal bayar</p><p><input type="text" name="tanggal" id="tanggal"/></p>
                     <p>Waktu bayar</p><p><input type="text" name="waktu"></p>
-                    <p>Total bayar</p><p><input type="text" name="total"></p>
-                    <p>Status Keberangkatan</p><p><input type="text" name="status"></p>                    
-                    <p class="submit"><input type="submit" name="commit" value="Simpan"></p>
+                    <p>Total bayar</p><p><input type="text" name="total"></p>              
+                    <p class="submit"><input type="submit" value="Simpan"></p>
                 </form>
             </div>
             <div class="login-help">

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.Agen;
 
 import com.Pemesan.DataPemesanan;
@@ -12,10 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Anak Tuhan
- */
 public class DataTransaksi {
 
     private String kode_bayar;

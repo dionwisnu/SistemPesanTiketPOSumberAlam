@@ -19,11 +19,11 @@ public class DataTransaksia {
         conn = aConn;
     }
     private String kode_bayar;
-    private String kode_boking;
+    private DataPemesanan kode_boking;
     private String waktu_bayar;
     private String status_keberangkatan;
     private String tanggal_bayar;
-    private int total_bayar;
+    private long total_bayar;
     private static Connection conn;
     private DataPemesanan transaksi;
 
@@ -42,28 +42,72 @@ public class DataTransaksia {
         conn = koneksi;
     }
 
-    public List<DataTransaksi> tampilTransaksi() throws SQLException {
+    public List<DataTransaksia> tampilTransaksi() throws SQLException {
         PreparedStatement statement = null;
         ResultSet result = null;
         try {
             conn.setAutoCommit(false);
             statement = conn.prepareStatement("select * from DATA_TRANSAKSI_RPLO");
             result = statement.executeQuery();
-            List<DataTransaksi> transaksi = new ArrayList<DataTransaksi>();
+            List<DataTransaksia> transaksia = new ArrayList<DataTransaksia>();
             while (result.next()) {
-                DataTransaksi dt = new DataTransaksi();
+                DataTransaksia dt = new DataTransaksia();
+                DataPemesanan dp = new DataPemesanan();
 
                 dt.setKode_bayar(result.getString("kode_pembayaran"));
-//                dt.setKode_boking(result.getString("kode_boking"));
+                dt.setKode_boking(dp);
+                dp.setKode_booking(result.getString("kode_boking"));
                 dt.setWaktu_bayar(result.getString("waktu_bayar"));
-                dt.setTotal_bayar(Integer.parseInt(result.getString("total_bayar")));
-//                dt.setStatus_keberangkatan(result.getString("status_keberangkatan"));
-//                dt.setTanggal_bayar(result.getString("tanggal_bayar"));
-                transaksi.add(dt);
+                dt.setTotal_bayar(Long.parseLong(result.getString("total_bayar")));
+                dt.setStatus_keberangkatan(result.getString("status_keberangkatan"));
+                dt.setTanggal_bayar(result.getString("tanggal_bayar"));
+                transaksia.add(dt);
             }
 
             conn.commit();
-            return transaksi;
+            return transaksia;
+        } catch (SQLException exception) {
+            throw exception;
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+                if (result != null) {
+                    result.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException exception) {
+                throw exception;
+            }
+        }
+    }
+    
+    public List<DataTransaksia> searchBoking(String kunci) throws SQLException {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            conn.setAutoCommit(false);
+            statement = conn.prepareStatement("select * from DATA_TRANSAKSI_RPLO where "
+                    + "kode_boking = '" + kunci + "'");
+            result = statement.executeQuery();
+            List<DataTransaksia> transaksia = new ArrayList<DataTransaksia>();
+            while (result.next()) {
+                DataTransaksia dt = new DataTransaksia();
+                DataPemesanan dp = new DataPemesanan();
+
+                dt.setKode_bayar(result.getString("kode_pembayaran"));
+                dp.setKode_booking(result.getString("kode_boking"));
+                dt.setKode_boking(dp);
+                dt.setWaktu_bayar(result.getString("waktu_bayar"));
+                dt.setTotal_bayar(Long.parseLong(result.getString("total_bayar")));
+                dt.setStatus_keberangkatan(result.getString("status_keberangkatan"));
+                dt.setTanggal_bayar(result.getString("tanggal_bayar"));
+                transaksia.add(dt);
+            }
+
+            conn.commit();
+            return transaksia;
         } catch (SQLException exception) {
             throw exception;
         } finally {
@@ -81,6 +125,48 @@ public class DataTransaksia {
         }
     }
 
+    public List<DataTransaksia> searchBayar(String kunci) throws SQLException {
+        PreparedStatement statement = null;
+        ResultSet result = null;
+        try {
+            conn.setAutoCommit(false);
+            statement = conn.prepareStatement("select * from DATA_TRANSAKSI_RPLO where "
+                    + "kode_pembayaran = '" + kunci + "'");
+            result = statement.executeQuery();
+            List<DataTransaksia> transaksia = new ArrayList<DataTransaksia>();
+            while (result.next()) {
+                DataTransaksia dt = new DataTransaksia();
+                DataPemesanan dp = new DataPemesanan();
+
+                dt.setKode_bayar(result.getString("kode_pembayaran"));
+                dp.setKode_booking(result.getString("kode_boking"));
+                dt.setKode_boking(dp);
+                dt.setWaktu_bayar(result.getString("waktu_bayar"));
+                dt.setTotal_bayar(Long.parseLong(result.getString("total_bayar")));
+                dt.setStatus_keberangkatan(result.getString("status_keberangkatan"));
+                dt.setTanggal_bayar(result.getString("tanggal_bayar"));
+                transaksia.add(dt);
+            }
+
+            conn.commit();
+            return transaksia;
+        } catch (SQLException exception) {
+            throw exception;
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+                if (result != null) {
+                    result.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException exception) {
+                throw exception;
+            }
+        }
+    }
+    
     public void inputTransaksi(DataTransaksia agen) throws SQLException {
         String sql = "insert into DATA_TRANSAKSI_RPLO (kode_pembayaran,tanggal_bayar,"
                 + "waktu_bayar,total_bayar,kode_boking, status_keberangkatan) "
@@ -90,21 +176,21 @@ public class DataTransaksia {
         ps.setString(2, agen.getTanggal_bayar());
         ps.setString(3, agen.getWaktu_bayar());
         ps.setString(4, agen.getTotal_bayar() + "");
-        ps.setString(5, "  ");
+        ps.setString(5, agen.getKode_boking().getKode_booking());
         ps.setString(6, agen.getStatus_keberangkatan());
         ps.executeUpdate();
         conn.commit();
-        conn.close();
+//        conn.close();
     }
 
     public String generateKodeBooking() throws SQLException {
         String kodBook;
-        kodBook = getTanggal_bayar() + "" + getKode_boking();
+        kodBook = getTanggal_bayar().substring(3, 6) + "" + getKode_boking();
         return kodBook;
     }
 
-    public void batalTransaksi(DataTransaksi agen) throws SQLException {
-        String sql = "delete from DATATRANSAKSI where kode_pembayaran = ?";
+    public void batalTransaksi(DataTransaksia agen) throws SQLException {
+        String sql = "delete from DATA_TRANSAKSI_RPLO where kode_pembayaran = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, agen.getKode_bayar());
         ps.executeUpdate();
@@ -120,11 +206,11 @@ public class DataTransaksia {
         this.kode_bayar = kode_bayar;
     }
 
-    public String getKode_boking() {
+    public DataPemesanan getKode_boking() {
         return kode_boking;
     }
 
-    public void setKode_boking(String kode_boking) {
+    public void setKode_boking(DataPemesanan kode_boking) {
         this.kode_boking = kode_boking;
     }
 
@@ -152,11 +238,11 @@ public class DataTransaksia {
         this.tanggal_bayar = tanggal_bayar;
     }
 
-    public int getTotal_bayar() {
+    public long getTotal_bayar() {
         return total_bayar;
     }
 
-    public void setTotal_bayar(int total_bayar) {
+    public void setTotal_bayar(long total_bayar) {
         this.total_bayar = total_bayar;
     }
 }
